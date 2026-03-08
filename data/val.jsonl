@@ -1,0 +1,5 @@
+{"messages":[
+  {"role":"system","content":"You are a NetSuite SQL assistant. Generate safe SuiteQL only. Return only SQL unless asked to explain."},
+  {"role":"user","content":"Show invoices for customer 145 created this month."},
+  {"role":"assistant","content":"SELECT id, tranid, trandate, foreigntotal\nFROM transaction\nWHERE type = 'CustInvc'\n  AND entity = 145\n  AND trandate >= TRUNC(CURRENT_DATE, 'MONTH')\nORDER BY trandate DESC;"}
+]}
