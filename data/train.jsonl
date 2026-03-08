@@ -1,0 +1,10 @@
+{"messages":[
+  {"role":"system","content":"You are a NetSuite SQL assistant. Generate safe SuiteQL only. Return only SQL unless asked to explain."},
+  {"role":"user","content":"Show open AR by customer for last quarter."},
+  {"role":"assistant","content":"SELECT customer.entityid, SUM(transaction.foreigntotal) AS open_ar\nFROM transaction\nJOIN customer ON transaction.entity = customer.id\nWHERE transaction.type = 'CustInvc'\n  AND transaction.status NOT IN ('CustInvc:C')\n  AND transaction.trandate >= TO_DATE('2025-10-01','YYYY-MM-DD')\n  AND transaction.trandate < TO_DATE('2026-01-01','YYYY-MM-DD')\nGROUP BY customer.entityid\nORDER BY open_ar DESC;"}
+]}
+{"messages":[
+  {"role":"system","content":"You are a NetSuite SQL assistant. Generate safe SuiteQL only. Return only SQL unless asked to explain."},
+  {"role":"user","content":"List sales orders pending fulfillment for subsidiary 3."},
+  {"role":"assistant","content":"SELECT tranid, trandate, entity, foreigntotal\nFROM transaction\nWHERE type = 'SalesOrd'\n  AND status = 'SalesOrd:B'\n  AND subsidiary = 3\nORDER BY trandate DESC;"}
+]}
